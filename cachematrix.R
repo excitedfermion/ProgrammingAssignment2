@@ -2,7 +2,7 @@
 ## own inverse. This is used by a specialized cacheSolve function to avoid an expensive
 ## recalculation.
 
-## Create a matrix object which has function calls to get and set the matrix,
+## Returns a matrix object which has function calls to get and set the matrix,
 ## as well as get and set the inverse of that matrix.
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -22,7 +22,8 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Returns a matrix that is the inverse of 'x'.
+## Returns a matrix that is the inverse of 'x'. If a cached
+## inverse matrix already exists, it returns that matrix.
 ## Requires input of a "cacheMatrix" object which is square.
 
 cacheSolve <- function(cacheMatrix, ...) {
@@ -33,7 +34,7 @@ cacheSolve <- function(cacheMatrix, ...) {
     }
     
     data <- cacheMatrix$get()
-    m <- solve(data, b = 0, ...)
+    m <- solve(data, b = 0, ...)  #solve must have b=0 to return an inverse
     cacheMatrix$setInverse(m)
     
     m
